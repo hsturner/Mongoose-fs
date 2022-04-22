@@ -13,7 +13,9 @@ eval <- fun env exp ->
     | Binop("&&",a,b) -> abs(eval env (Binop("*",a,b)))//will be 0 if either expr = 0
     | Uniop("!",a) -> if eval env a  = 0 then 1 else 0  //if true, produces a value >= 1 
     | Ifelse(a,b,c) -> if (eval env a) > 0 then (eval env b) else (eval env c) //if else
-    //| Letexp(a,b,c) -> //
+    | Letexp(a,b,c) -> 
+      let newenv = appended a b env; 
+      eval newenv c
     | _ -> base_eval env exp;;
 
 
